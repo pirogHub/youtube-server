@@ -1,5 +1,5 @@
-import { VideoEntity } from 'src/video/video.entity';
-import { Entity,JoinColumn, Column,ManyToOne } from 'typeorm';
+import { VideoEntity } from 'src/video/entities/video.entity';
+import { Entity, JoinColumn, Column, ManyToOne } from 'typeorm';
 import { Base } from "utils/db/Base";
 import { UserEntity } from 'src/user/entities/user.entity';
 
@@ -11,10 +11,10 @@ export class CommentEntity extends Base {
 
 
     @ManyToOne(() => UserEntity, user => user.comments)
-    @JoinColumn({name: "user_id"})
+    @JoinColumn({ name: "user_id" })
     user: UserEntity
 
     @ManyToOne(() => VideoEntity, video => video.comments)
-    @JoinColumn({name: "video_id"})
+    @JoinColumn({ name: "video_id" })
     video: VideoEntity
 }

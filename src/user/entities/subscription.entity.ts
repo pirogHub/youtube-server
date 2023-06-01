@@ -1,8 +1,6 @@
 import { UserEntity } from "src/user/entities/user.entity"
-import { VideoEntity } from "src/video/video.entity"
 import { Entity, JoinColumn, ManyToOne } from "typeorm"
 import { Base } from "utils/db/Base"
-
 @Entity("Subscription")
 export class SubscriptionEntity extends Base {
     @ManyToOne(() => UserEntity, user => user.subscriptions)

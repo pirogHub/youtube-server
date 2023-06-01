@@ -1,7 +1,8 @@
-import { CommentEntity } from "src/comment/comment.entity"
+import { CommentEntity } from "src/comment/entities/comment.entity"
 import { UserEntity } from "src/user/entities/user.entity"
 import { Entity, OneToMany, Column, JoinColumn, ManyToOne } from "typeorm"
 import { Base } from "utils/db/Base"
+import { LikesEntity } from "./likes.entity"
 
 @Entity("Video")
 export class VideoEntity extends Base {
@@ -17,13 +18,16 @@ export class VideoEntity extends Base {
     name: string
 
     @Column({ default: false, name: "is_public" })
-    isPublic: string
+    isPublic: boolean
 
     @Column({ default: 0 })
     views?: number
 
-    @Column({ default: 0 })
-    likes?: number
+    // @Column({ default: 0 })
+    // likes?: number
+
+    @OneToMany(() => LikesEntity, likes => likes.toVideo)
+    likes: LikesEntity[]
 
     @Column({ default: 0 })
     duration?: number

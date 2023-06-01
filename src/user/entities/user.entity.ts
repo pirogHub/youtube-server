@@ -1,8 +1,9 @@
-import { VideoEntity } from "src/video/video.entity"
+import { VideoEntity } from "src/video/entities/video.entity"
 import { Entity, OneToMany, Column } from "typeorm"
 import { SubscriptionEntity } from "./subscription.entity"
 import { Base } from "utils/db/Base"
-import { CommentEntity } from "src/comment/comment.entity"
+import { CommentEntity } from "src/comment/entities/comment.entity"
+import { LikesEntity } from "src/video/entities/likes.entity"
 
 
 @Entity("User")
@@ -40,6 +41,9 @@ export class UserEntity extends Base {
 
     @OneToMany(() => CommentEntity, comment => comment.user)
     comments: CommentEntity[]
+
+    @OneToMany(() => LikesEntity, likes => likes.fromUser)
+    likes: LikesEntity[]
 
 
 }

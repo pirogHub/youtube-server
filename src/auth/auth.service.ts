@@ -36,7 +36,6 @@ export class AuthService {
     async register(dto: AuthDto) {
 
         const existedUser = await this.userRepository.findOneBy({ email: dto.email })
-
         if (existedUser) throw new BadRequestException("Email занят")
 
         const salt = await genSalt(10)
