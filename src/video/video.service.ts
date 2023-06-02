@@ -15,6 +15,8 @@ export class VideoService {
     ) { }
 
     async byId(id: number, isPublic = false) {
+        console.log("id", id);
+
         const video = await this.videoRepository.findOne({
             where: isPublic ? {
                 id, isPublic: true
@@ -60,6 +62,7 @@ export class VideoService {
             }
         })
 
+        console.log("video", Array.isArray(video));
         if (!video) throw new NotFoundException("video не найдено")
         return video
     }
@@ -120,7 +123,28 @@ export class VideoService {
             },
             order: {
                 views: -1
+            },
+            relations: {
+                user: true,
+                comments: {
+                    user: true
+                }
+            },
+            select: {
+                user: {
+                    id: true,
+                    name: true,
+                    avatarPath: true,
+                    isVerified: true
+                },
+                likes: {
+                    id: true,
+                    fromUser: {
+                        id: true
+                    }
+                }
             }
+
         })
     }
 

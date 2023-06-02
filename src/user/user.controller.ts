@@ -1,4 +1,4 @@
-import { Controller, Get, Param, HttpCode, ValidationPipe, UsePipes, Put, Body, ForbiddenException } from '@nestjs/common';
+import { Controller, Get, Param, HttpCode, ValidationPipe, UsePipes, Put, Body, ForbiddenException, Patch } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { User } from './decorators/user.decorator';
@@ -15,13 +15,15 @@ export class UserController {
   }
 
   @Get('by-id/:id')
-  @Auth()
+
   async getUser(@Param('id') id: string) {
+
     return this.userService.byId(+id)
   }
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
+  @Auth()
   @Put('/:id')
   async updateUser(@Param("id") id: string, @Body() dto: UserDto, @User("id") ownerId: number) {
     if (ownerId !== +id) {
@@ -32,7 +34,7 @@ export class UserController {
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
-  @Put('subscribe/:channelId')
+  @Patch('subscribe/:channelId')
   @Auth()
   async subscribeToChannel(@Param("channelId") channelId: string, @User("id") id: number) {
     return this.userService.subscribe(+id, +channelId)

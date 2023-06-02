@@ -15,17 +15,16 @@ export class VideoController {
     return this.videoService.byId(+id)
   }
 
-  @Get()
-  async getAll(@Query('searchTerm') searchTerm: string) {
-    return this.videoService.getAll(searchTerm)
-  }
+
   @Get('most-popular')
   async getMostPopularByViews() {
     return this.videoService.getMostPopularByViews()
   }
 
-  @Get(":videoId")
+  @Get("by-id/:videoId")
   async getById(@Param("videoId") videoId: string) {
+    console.log("by-id", videoId);
+
     return this.videoService.byId(+videoId)
   }
 
@@ -62,6 +61,11 @@ export class VideoController {
   @Auth()
   async updateLikes(@Param("videoId") videoId: string, @User("id") likerId: number) {
     return this.videoService.updateLikes(+videoId, likerId)
+  }
+
+  @Get()
+  async getAll(@Query('searchTerm') searchTerm: string) {
+    return this.videoService.getAll(searchTerm)
   }
 
 

@@ -42,7 +42,7 @@ export class AuthService {
         console.log("dto", dto);
 
         const newUser = await this.userRepository.create({
-            name: dto.name,
+            name: dto.email.split("@")[0] || "MyName",
             email: dto.email,
             password: await hash(dto.password, salt)
         })

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { path } from "app-root-path"
 import { ensureDir, writeFile } from "fs-extra"
 import { IMediaResponse } from './media.interface';
@@ -10,18 +10,25 @@ export class MediaService {
         mediaFile: Express.Multer.File,
         folder = "default"
     ): Promise<IMediaResponse> {
-        const uploadFolder = `${path}/uploads/${folder}`
-        await ensureDir(uploadFolder)
+        console.log("folder");
+        try {
 
-        await writeFile(
-            `${uploadFolder}/${mediaFile.originalname}`,
-            mediaFile.buffer
-        )
+            const uploadFolder = `${path}/uploads/${folder}`
+            await ensureDir(uploadFolder)
 
-        return {
-            url: `/uploads/${folder}/${mediaFile.originalname}`,
-            name: mediaFile.originalname
+            await writeFile(
+                `${uploadFolder}/${mediaFile.originalname}`,
+                mediaFile.buffer
+            )
+
+            return {
+                url: `/uploads/${folder}/${mediaFile.originalname}`,
+                name: mediaFile.originalname
+            }
+        } catch (error) {
+            throw new ForbiddenException("Ошибка при сохранении видео")
         }
+
     }
 
 
