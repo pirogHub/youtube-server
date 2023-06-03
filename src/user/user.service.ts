@@ -30,12 +30,17 @@ export class UserService {
                     toChannel: true
                 }
             },
+            select: {
+                videos: true
+            },
             order: {
                 createdAt: "DESC"
             }
         })
 
         if (!user) throw new NotFoundException("User не найден")
+        // console.log("user", user);
+
         return user
     }
 
