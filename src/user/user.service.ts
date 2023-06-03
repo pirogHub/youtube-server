@@ -25,7 +25,9 @@ export class UserService {
                 id
             },
             relations: {
-                videos: true,
+                videos: {
+                    user: true
+                },
                 subscriptions: {
                     toChannel: true
                 }

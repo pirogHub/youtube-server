@@ -14,6 +14,8 @@ export class CommentController {
   @Post()
   @Auth()
   async createComment(@User("id") userId: number, @Body() dto: CommentDto) {
+    console.log("comment from ", userId), " to video", dto.videoId;
+
     return this.commentService.create(userId, dto)
   }
 

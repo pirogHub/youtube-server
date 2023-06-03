@@ -163,6 +163,8 @@ export class VideoService {
     }
 
     async delete(editorId: number, videoId: number) {
+        console.log("editorId", editorId, "videoId", videoId);
+
         const videoToDelete = await this.videoRepository.findOne({ where: { id: videoId, user: { id: editorId } } })
         if (!videoToDelete) {
             throw new ForbiddenException("Такого видео нет или Вы не можете редактировать чужое видео")

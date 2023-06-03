@@ -14,7 +14,7 @@ export class CommentService {
     async create(userId: number, dto: CommentDto) {
         const newComment = this.commentRepository.create({
             message: dto.message,
-            video: { id: dto.videoId },
+            video: { id: +dto.videoId },
             user: { id: userId }
         })
         return this.commentRepository.save(newComment)
