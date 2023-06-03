@@ -23,7 +23,7 @@ export class VideoController {
 
   @Get("by-id/:videoId")
   async getById(@Param("videoId") videoId: string) {
-    console.log("by-id", videoId);
+    console.log("by-id/:videoId", videoId);
 
     return this.videoService.byId(+videoId)
   }

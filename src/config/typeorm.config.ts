@@ -8,6 +8,7 @@ export const getTypeOrmConfig = async (configService: ConfigService): Promise<Ty
     database: configService.get('DB_DATABASE_NAME'),
     username: configService.get('DB_USER'),
     password: configService.get('DB_PASSWORD'),
+    // url: configService.get('DB_PASSWORD'),
     autoLoadEntities: true,
     synchronize: true
 

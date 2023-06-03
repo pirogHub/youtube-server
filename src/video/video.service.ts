@@ -15,7 +15,7 @@ export class VideoService {
     ) { }
 
     async byId(id: number, isPublic = false) {
-        console.log("id", id);
+        console.log("videoservice byId", id);
 
         const video = await this.videoRepository.findOne({
             where: isPublic ? {
